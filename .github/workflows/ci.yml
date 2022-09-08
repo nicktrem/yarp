@@ -1025,6 +1025,12 @@ jobs:
           message(FATAL_ERROR "Configure step failed")
         endif()
 
+    - name: BeforeBuild
+      run: |
+        echo "aaaaaaaaaa"
+        cat build/share/yarp/plugins/controlboardwrapper2.ini
+        echo "aaaaaaaaaa"
+
     - name: Build
       shell: cmake -P {0}
       run: |
@@ -1047,11 +1053,21 @@ jobs:
         # Reset ccache stats before uploading
         execute_process_x(COMMAND ccache -z)
 
+        execute_process_x(COMMAND ls build/share/yarp/plugins)
+
     - name: Run tests
       shell: cmake -P {0}
       run: |
         cmake_minimum_required(VERSION 3.17)
         include(${{ steps.prepare_environment_script.outputs.environment_script }})
+
+        execute_process_x(COMMAND echo 111111111111111111)
+        execute_process_x(COMMAND ls build/share/yarp/plugins)
+        execute_process_x(COMMAND echo 222222222222222222)
+        execute_process_x(COMMAND echo $YARP_DATA_DIRS)
+        execute_process_x(COMMAND echo 333333333333333333)
+        execute_process_x(COMMAND ls $YARP_DATA_DIRS)
+        execute_process_x(COMMAND echo 444444444444444444)
 
         execute_process_x(
           COMMAND ${CMAKE_CTEST_COMMAND}
@@ -1587,6 +1603,10 @@ jobs:
           "-DCMAKE_CXX_FLAGS_PROFILE=-pg -g3 -ggdb -fno-inline -ftest-coverage -fprofile-arcs -DNDEBUG" \
           -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=ON \
           -DYARP_NO_DEPRECATED:BOOL=ON
+
+        echo ">>>>>>>>>>>>>>>>>>>>>>>>>>"
+        cat build/share/yarp/plugins/controlboardwrapper2.ini
+        echo ">>>>>>>>>>>>>>>>>>>>>>>>>>"
 
         (cd build && lcov --directory . --zerocounters)
 

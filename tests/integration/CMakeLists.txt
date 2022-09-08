@@ -6,6 +6,7 @@ add_test(NAME misc::check_yarp_version COMMAND ${YARP_BINARY_DIR}/bin/yarp --ver
 
 # This test check if all the plugins are working correctly (the test will fail if a single plugin cannot be opened)
 add_test(NAME misc::check_yarp_plugin COMMAND ${YARP_BINARY_DIR}/bin/yarp plugin --all)
+add_test(NAME misc::check_yarp_cbw2 COMMAND ${YARP_BINARY_DIR}/bin/yarp plugin controlboardwrapper2)
 
 # Similar to the previous test, but using yarpdev. Only device plugins are checked.
 add_test(NAME misc::check_yarpdev_list COMMAND ${YARP_BINARY_DIR}/bin/yarpdev --list)
