@@ -1064,9 +1064,9 @@ jobs:
         execute_process_x(COMMAND echo 111111111111111111)
         execute_process_x(COMMAND ls build/share/yarp/plugins)
         execute_process_x(COMMAND echo 222222222222222222)
-        execute_process_x(COMMAND echo $YARP_DATA_DIRS)
+        execute_process_x(COMMAND echo "$YARP_DATA_DIRS")
         execute_process_x(COMMAND echo 333333333333333333)
-        execute_process_x(COMMAND ls $YARP_DATA_DIRS)
+        execute_process_x(COMMAND ls "$YARP_DATA_DIRS")
         execute_process_x(COMMAND echo 444444444444444444)
 
         execute_process_x(
