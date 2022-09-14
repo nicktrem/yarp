@@ -1030,7 +1030,10 @@ jobs:
         echo "aaaaaaaaaa"
         cat build/share/yarp/plugins/controlboardwrapper2.ini
         echo "aaaaaaaaaa"
-
+        echo "bbbbbbbbbb"
+        sudo apt-get install mlocate
+        echo "bbbbbbbbbb"
+        
     - name: Build
       shell: cmake -P {0}
       run: |
@@ -1061,14 +1064,18 @@ jobs:
         cmake_minimum_required(VERSION 3.17)
         include(${{ steps.prepare_environment_script.outputs.environment_script }})
 
-        execute_process_x(COMMAND echo 111111111111111111)
-        execute_process_x(COMMAND ls build/share/yarp/plugins)
-        execute_process_x(COMMAND echo 222222222222222222)
-        execute_process_x(COMMAND echo "$YARP_DATA_DIRS")
-        execute_process_x(COMMAND echo 333333333333333333)
-        execute_process_x(COMMAND ls "$YARP_DATA_DIRS")
-        execute_process_x(COMMAND echo 444444444444444444)
-
+        execute_process(COMMAND echo 111111111111111111)
+        execute_process(COMMAND ls build/share/yarp/plugins)
+        execute_process(COMMAND echo 222222222222222222)
+        execute_process(COMMAND echo ${YARP_DATA_DIRS})
+        execute_process(COMMAND echo 333333333333333333)
+        execute_process(COMMAND ls ${YARP_DATA_DIRS})
+        execute_process(COMMAND echo 444444444444444444)
+        
+        execute_process(COMMAND sudo updatedb)
+        execute_process(COMMAND locate -i controlBoard_nws_yarp.ini)
+        execute_process(COMMAND locate -i controlboardwrapper2.ini)
+        
         execute_process_x(
           COMMAND ${CMAKE_CTEST_COMMAND}
             --build-config ${{ matrix.config.build_type }}
