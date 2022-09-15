@@ -1083,6 +1083,7 @@ jobs:
             # Allow up to 3 run of the same test
             --repeat until-pass:3
             --output-on-failure
+            --verbose
           WORKING_DIRECTORY build
           RESULT_VARIABLE result
         )

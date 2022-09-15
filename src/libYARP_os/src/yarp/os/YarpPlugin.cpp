@@ -238,6 +238,11 @@ void YarpPluginSelector::scan()
         plugin_paths = rf.findPaths("share/yarp/plugins");
     }
 
+    yCInfo(YARPPLUGINSETTINGS, "###############");
+    yCInfo(YARPPLUGINSETTINGS, plugin_paths.toString().c_str());
+    yCInfo(YARPPLUGINSETTINGS, "###############");
+
+
     // Search .ini files in plugins directories
     config.clear();
     if (plugin_paths.size() > 0) {
