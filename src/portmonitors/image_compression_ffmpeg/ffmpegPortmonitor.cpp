@@ -406,7 +406,12 @@ int FfmpegMonitorObject::compress(Image* img, AVPacket *pkt) {
     }
 
     // Set presentation timestamp
+#if LIBAVCODEC_VERSION_MAJOR >= 61
+    // See https://github.com/FFmpeg/FFmpeg/commit/6b6f7db81932f94876ff4bcfd2da0582b8ab897e
+    endFrame->pts = codecContext->frame_num;
+#else
     endFrame->pts = codecContext->frame_number;
+#endif
 
     // Send image frame to codec
     ret = avcodec_send_frame(codecContext, endFrame);
